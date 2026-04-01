@@ -10,10 +10,13 @@ const TodoForm = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (todoString === "") return alert("Please enter to-do");
+        const text = todoString.trim();
+        if (text === "") return alert("Lütfen bir yapılacak girin.");
         const todo = {
-            todoString,
-            id: v4()
+            todoString: text,
+            id: v4(),
+            completed: false,
+            createdAt: Date.now()
         };
         dispatch({
             type: ADD_TODO,
@@ -23,22 +26,22 @@ const TodoForm = () => {
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="todo-form">
             <FormGroup>
                 <InputGroup>
                     <Input
                         type="text"
                         name="todo"
                         id="todo"
-                        placeholder="Enter your to-do item"
+                        placeholder="Yeni yapılacak ekle..."
                         value={todoString}
                         onChange={e => setTodoString(e.target.value)}
                     />
                     <InputGroupAddon addonType="prepend">
                         <Button
-                            color="warning"
+                            color="primary"
                         >
-                            Add
+                            Ekle
                         </Button>
                     </InputGroupAddon>
                 </InputGroup>
